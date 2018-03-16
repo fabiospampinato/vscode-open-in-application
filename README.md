@@ -1,4 +1,4 @@
-# VSC Open in Application
+# Open in Application
 
 <p align="center">
 	<img src="https://raw.githubusercontent.com/fabiospampinato/vscode-open-in-application/master/resources/logo-128x128.png" alt="Logo">
@@ -10,10 +10,10 @@ This is customizable: you can provide a custom app for each extension, or even m
 
 ## Install
 
-Run the following in the command palette:
+Follow the instructions in the [Marketplace](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-open-in-application), or run the following in the command palette:
 
 ```shell
-ext install vscode-open-in-application
+ext install fabiospampinato.vscode-open-in-application
 ```
 
 ## Usage
