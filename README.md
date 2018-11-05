@@ -1,7 +1,7 @@
 # Open in Application
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/fabiospampinato/vscode-open-in-application/master/resources/logo-128x128.png" alt="Logo">
+	<img src="https://raw.githubusercontent.com/fabiospampinato/vscode-open-in-application/master/resources/logo.png" width="128" alt="Logo">
 </p>
 
 Open an arbitrary file in its default app, or the app you want.
