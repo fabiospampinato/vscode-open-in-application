@@ -35,6 +35,12 @@
           "group": "navigation"
         }
       ],
+      "editor/context": [
+        {
+          "command": "openInApplication.open",
+          "group": "navigation"
+        }
+      ],
       "editor/title/context": [
         {
           "command": "openInApplication.open",
