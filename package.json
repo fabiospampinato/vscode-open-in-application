@@ -31,7 +31,7 @@
     "menus": {
       "explorer/context": [
         {
-          "when": "explorerResourceIsFolder",
+          "when": "!explorerResourceIsFolder",
           "command": "openInApplication.open",
           "group": "navigation"
         }
