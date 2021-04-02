@@ -28,7 +28,9 @@ async function open ( filepath ) {
         isFolder = await Utils.folder.is ( filepath ),
         ext = isFolder ? 'folder' : _.trimStart ( path.parse ( filepath ).ext, '.' ),
         apps = _.castArray ( config.applications[ext] || [] ),
-        app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) : apps[0] ) : undefined;
+        app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) : undefined;
+
+  if ( app === false ) return;
 
   openPath ( filepath, app );
 
