@@ -1,3 +1,6 @@
+### Version 2.0.0
+- Rewitten: more modern code, almost no third-party dependencies, 98% smaller bundle
+
 ### Version 1.0.6
 - Ensuring escaping the app selection quick pick cancels the opening
 
