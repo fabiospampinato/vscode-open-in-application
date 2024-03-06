@@ -1,3 +1,7 @@
+### Version 2.1.0
+- Ensuring extensions listed with a "." prefix are handled too, for convenience
+- Added support for multiple file extensions on the same file name
+
 ### Version 2.0.0
 - Rewitten: more modern code, almost no third-party dependencies, 98% smaller bundle
 
