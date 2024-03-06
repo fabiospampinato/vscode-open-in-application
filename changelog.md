@@ -1,8 +1,4 @@
 ### Version 1.0.6
-- Moved "@types/*" to "dependencies"
-- Replaced tabs with spaces
-- Update .github/FUNDING.yml
-- Deleted repo-level github funding.yml
 - Ensuring escaping the app selection quick pick cancels the opening
 
 ### Version 1.0.5

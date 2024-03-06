@@ -1,40 +1,44 @@
 
 /* IMPORT */
 
-import * as _ from 'lodash';
-import * as openPath from 'open';
-import * as path from 'path';
-import * as vscode from 'vscode';
-import Config from './config';
-import Utils from './utils';
+import fs from 'node:fs';
+import path from 'node:path';
+import openPath from 'open';
+import vscode from 'vscode';
+import {getConfig} from 'vscode-extras';
+import {castArray, isString} from './utils';
 
-/* COMMANDS */
+/* MAIN */
 
-async function open ( filepath ) {
+const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
-  filepath = filepath && !_.isString ( filepath ) ? filepath.fsPath : filepath;
+  filePath ||= vscode.window.activeTextEditor?.document.uri.fsPath || vscode.window.tabGroups.activeTabGroup.activeTab?.input?.uri?.fsPath;
 
-  if ( !filepath ) { // Active file
+  if ( !filePath ) return void vscode.window.showErrorMessage ( 'For this file you might have to trigger this action from the right-click menu' );
 
-    const editor = vscode.window.activeTextEditor;
+  if ( !isString ( filePath ) ) filePath = filePath?.fsPath;
 
-    if ( !editor ) return vscode.window.showErrorMessage ( 'For this file you\'ll have to trigger this action from the right-click menu' );
+  const config = getConfig ( 'openInApplication' );
+  const isFolder = fs.lstatSync ( filePath ).isDirectory ();
+  const ext = isFolder ? 'folder' : path.extname ( filePath ).replace ( /^\./, '' );
+  const apps = castArray ( config?.applications?.[ext] || [] );
+  const app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) : undefined;
 
-    filepath = editor.document.uri.fsPath;
+  if ( app === false ) {
+
+    return;
+
+  } else if ( app ) {
+
+    openPath ( filePath, { app: { name: app } } );
+
+  } else {
+
+    openPath ( filePath );
 
   }
 
-  const config = Config.get (),
-        isFolder = await Utils.folder.is ( filepath ),
-        ext = isFolder ? 'folder' : _.trimStart ( path.parse ( filepath ).ext, '.' ),
-        apps = _.castArray ( config.applications[ext] || [] ),
-        app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) : undefined;
-
-  if ( app === false ) return;
-
-  openPath ( filepath, app );
-
-}
+};
 
 /* EXPORT */
 

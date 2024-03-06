@@ -1,48 +1,18 @@
 
-/* IMPORT */
+/* MAIN */
 
-import * as _ from 'lodash';
-import * as fs from 'fs';
-import * as pify from 'pify';
-import * as vscode from 'vscode';
-import * as Commands from './commands';
+const castArray = <T> ( value: T | T[] ): T[] => {
 
-/* UTILS */
+  return Array.isArray ( value ) ? value : [value];
 
-const Utils = {
+};
 
-  initCommands ( context: vscode.ExtensionContext ) {
+const isString = ( value: unknown ): value is string => {
 
-    const {commands} = vscode.extensions.getExtension ( 'fabiospampinato.vscode-open-in-application' ).packageJSON.contributes;
-
-    commands.forEach ( ({ command, title }) => {
-
-      const commandName = _.last ( command.split ( '.' ) ) as string,
-            handler = Commands[commandName],
-            disposable = vscode.commands.registerCommand ( command, handler );
-
-      context.subscriptions.push ( disposable );
-
-    });
-
-    return Commands;
-
-  },
-
-  folder: {
-
-    async is ( folderpath ) {
-
-      const stats = await pify ( fs.lstat )( folderpath );
-
-      return stats.isDirectory ();
-
-    }
-
-  }
+  return typeof value === 'string';
 
 };
 
 /* EXPORT */
 
-export default Utils;
+export {castArray, isString};
