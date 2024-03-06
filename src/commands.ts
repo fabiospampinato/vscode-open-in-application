@@ -20,8 +20,10 @@ const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
   const config = getConfig ( 'openInApplication' );
   const isFolder = fs.lstatSync ( filePath ).isDirectory ();
-  const ext = isFolder ? 'folder' : path.extname ( filePath ).replace ( /^\./, '' );
-  const apps = castArray ( config?.applications?.[ext] || config?.applications?.[`.${ext}`] || [] );
+  const extAll = isFolder ? 'folder' : path.basename ( filePath ).replace ( /^[^.]*\./, '' );
+  const extLast = isFolder ? 'folder' : path.extname ( filePath ).replace ( /^\./, '' );
+  const appsMap = config?.applications || {};
+  const apps = castArray ( appsMap[extAll] || appsMap[`.${extAll}`] || appsMap[extLast] || appsMap[`.${extLast}`] || [] );
   const app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) : undefined;
 
   if ( app === false ) {
