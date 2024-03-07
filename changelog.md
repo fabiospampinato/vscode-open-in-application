@@ -1,3 +1,7 @@
+### Version 2.1.1
+- Replaced "open" with "tiny-open"
+- Updated some dependencies
+
 ### Version 2.1.0
 - Ensuring extensions listed with a "." prefix are handled too, for convenience
 - Added support for multiple file extensions on the same file name
