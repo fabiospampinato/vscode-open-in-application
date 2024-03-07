@@ -3,7 +3,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import openPath from 'open';
+import openPath from 'tiny-open';
 import vscode from 'vscode';
 import {getConfig} from 'vscode-extras';
 import {castArray, isString} from './utils';
@@ -32,7 +32,7 @@ const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
   } else if ( app ) {
 
-    openPath ( filePath, { app: { name: app } } );
+    openPath ( filePath, { app } );
 
   } else {
 

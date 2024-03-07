@@ -69,7 +69,7 @@
     "application"
   ],
   "dependencies": {
-    "open": "^8.4.2",
+    "tiny-open": "^1.1.1",
     "vscode-extras": "^1.0.1"
   },
   "devDependencies": {
