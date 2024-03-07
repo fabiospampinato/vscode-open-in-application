@@ -70,10 +70,10 @@
   ],
   "dependencies": {
     "tiny-open": "^1.1.1",
-    "vscode-extras": "^1.0.1"
+    "vscode-extras": "^1.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.19.21",
+    "@types/node": "^18.19.22",
     "@types/vscode": "^1.87.0",
     "esbuild": "0.20.1",
     "scex": "^1.1.0",

@@ -5,14 +5,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import openPath from 'tiny-open';
 import vscode from 'vscode';
-import {getConfig} from 'vscode-extras';
+import {getActiveFilePath, getConfig} from 'vscode-extras';
 import {castArray, isString} from './utils';
 
 /* MAIN */
 
 const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
-  filePath ||= vscode.window.activeTextEditor?.document.uri.fsPath || vscode.window.tabGroups.activeTabGroup.activeTab?.input?.uri?.fsPath;
+  filePath ||= getActiveFilePath ();
 
   if ( !filePath ) return void vscode.window.showErrorMessage ( 'For this file you might have to trigger this action from the right-click menu' );
 
