@@ -1,3 +1,6 @@
+### Version 2.2.0
+- Added support for opening the current project, when no files are opened
+
 ### Version 2.1.3
 - Improved internal implementation
 
