@@ -69,7 +69,7 @@
     "application"
   ],
   "dependencies": {
-    "vscode-extras": "^1.6.0"
+    "vscode-extras": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "^18.19.23",

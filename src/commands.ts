@@ -4,8 +4,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vscode from 'vscode';
-import {alert, getActiveFilePath, getConfig, openInApp} from 'vscode-extras';
-import {castArray, isString} from './utils';
+import {alert, getActiveFilePath, openInApp, prompt} from 'vscode-extras';
+import {castArray, getOptions, isString} from './utils';
 
 /* MAIN */
 
@@ -13,17 +13,17 @@ const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
   filePath ||= getActiveFilePath ();
 
-  if ( !filePath ) return alert.error ( 'For this file you might have to trigger this action from the right-click menu' );
+  if ( !filePath ) return alert.error ( 'You need to open a file first' );
 
   if ( !isString ( filePath ) ) filePath = filePath?.fsPath;
 
-  const config = getConfig ( 'openInApplication' );
   const isFolder = fs.lstatSync ( filePath ).isDirectory ();
   const extAll = isFolder ? 'folder' : path.basename ( filePath ).replace ( /^[^.]*\./, '' );
   const extLast = isFolder ? 'folder' : path.extname ( filePath ).replace ( /^\./, '' );
-  const appsMap = config?.applications || {};
-  const apps = castArray ( appsMap[extAll] || appsMap[`.${extAll}`] || appsMap[extLast] || appsMap[`.${extLast}`] || [] );
-  const app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) || undefined : undefined;
+
+  const {applications} = getOptions ();
+  const apps = castArray ( applications[extAll] || applications[`.${extAll}`] || applications[extLast] || applications[`.${extLast}`] || [] );
+  const app = apps.length > 1 ? await prompt.select ( 'Select the application...', apps ) : apps[0];
 
   openInApp ( filePath, app );
 
