@@ -1,3 +1,6 @@
+### Version 2.1.3
+- Improved internal implementation
+
 ### Version 2.1.2
 - Minor internal improvements
 
