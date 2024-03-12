@@ -4,16 +4,16 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vscode from 'vscode';
-import {alert, getActiveFilePath, openInApp, prompt} from 'vscode-extras';
+import {alert, getActiveFilePath, getProjectRootPath, openInApp, prompt} from 'vscode-extras';
 import {castArray, getOptions, isString} from './utils';
 
 /* MAIN */
 
 const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
-  filePath ||= getActiveFilePath ();
+  filePath ||= getActiveFilePath () || getProjectRootPath ();
 
-  if ( !filePath ) return alert.error ( 'You need to open a file first' );
+  if ( !filePath ) return alert.error ( 'You have to open a project or a file first' );
 
   if ( !isString ( filePath ) ) filePath = filePath?.fsPath;
 
