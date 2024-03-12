@@ -3,9 +3,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import openPath from 'tiny-open';
 import vscode from 'vscode';
-import {getActiveFilePath, getConfig} from 'vscode-extras';
+import {alert, getActiveFilePath, getConfig, openInApp} from 'vscode-extras';
 import {castArray, isString} from './utils';
 
 /* MAIN */
@@ -14,7 +13,7 @@ const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
 
   filePath ||= getActiveFilePath ();
 
-  if ( !filePath ) return void vscode.window.showErrorMessage ( 'For this file you might have to trigger this action from the right-click menu' );
+  if ( !filePath ) return alert.error ( 'For this file you might have to trigger this action from the right-click menu' );
 
   if ( !isString ( filePath ) ) filePath = filePath?.fsPath;
 
@@ -24,21 +23,9 @@ const open = async ( filePath?: string | vscode.Uri ): Promise<void> => {
   const extLast = isFolder ? 'folder' : path.extname ( filePath ).replace ( /^\./, '' );
   const appsMap = config?.applications || {};
   const apps = castArray ( appsMap[extAll] || appsMap[`.${extAll}`] || appsMap[extLast] || appsMap[`.${extLast}`] || [] );
-  const app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) : undefined;
+  const app = apps.length ? ( apps.length > 1 ? await vscode.window.showQuickPick ( apps, { placeHolder: 'Select the application...' } ) || false : apps[0] ) || undefined : undefined;
 
-  if ( app === false ) {
-
-    return;
-
-  } else if ( app ) {
-
-    openPath ( filePath, { app } );
-
-  } else {
-
-    openPath ( filePath );
-
-  }
+  openInApp ( filePath, app );
 
 };
 
