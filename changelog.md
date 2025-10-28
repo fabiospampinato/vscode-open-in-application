@@ -1,3 +1,6 @@
+### Version 2.3.0
+- Added support for specifing a default fallback app, using the special "*" character as the extension
+
 ### Version 2.2.0
 - Added support for opening the current project, when no files are opened
 
