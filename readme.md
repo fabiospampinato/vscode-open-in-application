@@ -34,13 +34,14 @@ You can also reach this command with a right click in the explorer.
 }
 ```
 
-The actual application's name to use is OS-dependant, for instance if you want to open Firefox under Ubuntu you have to use "firefox" (lowercase) in your settings. We use the [open](https://www.npmjs.com/package/open) utility under the hood, everything that works with it will work here.
+The actual application's name to use is OS-dependant, for instance if you want to open Firefox under Ubuntu you have to use "firefox" (lowercase) in your settings.
 
 Example settings for custom application:
 
 ```js
 {
   "openInApplication.applications": {
+    "*": "MyApp", // Default app to use when a more specific one for the extension isn't specified
     "html": "Firefox" // Always use Firefox for opening html files
   }
 }
@@ -51,6 +52,7 @@ Example settings for custom applications:
 ```js
 {
   "openInApplication.applications": {
+    "*": ["MyApp", "MyOtherApp"], // Ask which default app to use when a more specific one for the extension isn't specified
     "html": ["Google Chrome", "Firefox"] // Ask which application to use when opening html files
   }
 }
