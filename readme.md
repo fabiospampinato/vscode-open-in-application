@@ -34,7 +34,7 @@ You can also reach this command with a right click in the explorer.
 }
 ```
 
-The actual application's name to use is OS-dependant, for instance if you want to open Firefox under Ubuntu you have to use "firefox" (lowercase) in your settings.
+The actual application's name to use is OS-dependent, for instance if you want to open Firefox under Ubuntu you have to use "firefox" (lowercase) in your settings.
 
 Example settings for custom application:
 
